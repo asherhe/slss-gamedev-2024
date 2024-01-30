@@ -6,6 +6,8 @@ let ballRadius = 10;
 let p1X, p1Y, p2X, p2Y;
 let paddleWidth = 15,
   paddleHeight = 80;
+let p1Score = 0,
+  p2Score = 0;
 
 function setup() {
   createCanvas(600, 400);
@@ -34,6 +36,11 @@ function draw() {
   // paddles
   rect(p1X, p1Y, paddleWidth, paddleHeight);
   rect(p2X, p2Y, paddleWidth, paddleHeight);
+
+  // score
+  textSize(30);
+  text(p1Score, 50, 40);
+  text(p2Score, 550, 40);
 
   // get keyboard input
   if (keyIsDown(87)) {
@@ -73,10 +80,12 @@ function draw() {
   if (ballY - ballRadius <= 0) {
     // top
     ballVy = -ballVy;
+    ballY = ballRadius;
   }
   if (ballY + ballRadius >= height) {
     // bottom
     ballVy = -ballVy;
+    ballY = height - ballRadius;
   }
 
   if (ballX - ballRadius <= p1X + paddleWidth && p1Y <= ballY && ballY <= p1Y + paddleHeight) {
@@ -89,6 +98,8 @@ function draw() {
   }
 
   if (ballX <= 0) {
+    p2Score++;
+
     ballX = width / 2;
     ballY = random(height);
     ballVx = random([-5, 5]);
@@ -100,6 +111,8 @@ function draw() {
     p2Y = height / 2 - paddleHeight / 2;
   }
   if (ballX >= width) {
+    p1Score++;
+
     ballX = width / 2;
     ballY = random(height);
     ballVx = random([-5, 5]);
