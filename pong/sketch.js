@@ -64,4 +64,50 @@ function draw() {
       p2Y = height - paddleHeight;
     }
   }
+
+  // update ball stuff
+  ballX += ballVx;
+  ballY += ballVy;
+
+  // check for ball collision
+  if (ballY - ballRadius <= 0) {
+    // top
+    ballVy = -ballVy;
+  }
+  if (ballY + ballRadius >= height) {
+    // bottom
+    ballVy = -ballVy;
+  }
+
+  if (ballX - ballRadius <= p1X + paddleWidth && p1Y <= ballY && ballY <= p1Y + paddleHeight) {
+    ballVx = -ballVx;
+    ballX = p1X + paddleWidth + ballRadius;
+  }
+  if (ballX + ballRadius >= p2X && p2Y <= ballY && ballY <= p2Y + paddleHeight) {
+    ballVx = -ballVx;
+    ballX = p2X - ballRadius;
+  }
+
+  if (ballX <= 0) {
+    ballX = width / 2;
+    ballY = random(height);
+    ballVx = random([-5, 5]);
+    ballVy = random([-5, 5]);
+
+    p1X = 40;
+    p1Y = height / 2 - paddleHeight / 2;
+    p2X = width - p1X - paddleWidth;
+    p2Y = height / 2 - paddleHeight / 2;
+  }
+  if (ballX >= width) {
+    ballX = width / 2;
+    ballY = random(height);
+    ballVx = random([-5, 5]);
+    ballVy = random([-5, 5]);
+
+    p1X = 40;
+    p1Y = height / 2 - paddleHeight / 2;
+    p2X = width - p1X - paddleWidth;
+    p2Y = height / 2 - paddleHeight / 2;
+  }
 }
